@@ -3,6 +3,7 @@ from sklearn import cluster
 import numpy as np
 from MDAnalysis.analysis.dihedrals import Ramachandran
 from MDAnalysis.analysis import distances
+from MDAnalysis.analysis import diffusionmap
 
 
 class Featurizer(object):
@@ -55,18 +56,23 @@ class Featurizer(object):
         returns the distance matrix of each conformation (lower diagonal, flattened)
         see MDAnalysis.analysis.distances.self_distance_array
         """
-        pass
+        return diffusionmap.DistanceMatrix(universe).run().results.dist_matrix
+
 
     def _get_features_custom(self, universe):
         pass
 
 
 class ClusterAnalysis(AnalysisBase):
-    def __init__(self, data, method):
-        super(ClusterAnalysis, self).__init__()
-        self.data = data
-        self.method = method
+    def __init__(self, atomgroup):
+        super(ClusterAnalysis, self).__init__(atomgroup)
+        self.atomgroup = atomgroup
 
-    def cluster(self):
-        Cluster = getattr(cluster, self.method)
+    def cluster(self, method, **kwargs):
+        Cluster = getattr(cluster, method)
+        self.clustering = Cluster(**kwargs)
+
+    def featurize(self, feature):
+        F = Featurizer(feature)
+        self.data = F.get_features(self.atomgroup)
 
