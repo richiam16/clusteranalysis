@@ -2,7 +2,6 @@ from MDAnalysis.analysis.base import AnalysisBase
 from sklearn import cluster
 import numpy as np
 from MDAnalysis.analysis.dihedrals import Ramachandran
-from MDAnalysis.analysis import distances
 from MDAnalysis.analysis import diffusionmap
 
 
@@ -53,11 +52,11 @@ class Featurizer(object):
 
     def _get_features_distance_matrix(self, universe):
         """
-        returns the distance matrix of each conformation (lower diagonal, flattened)
-        see MDAnalysis.analysis.distances.self_distance_array
+        returns the distance matrix of each conformation
+        (lower diagonal, flattened) see
+        MDAnalysis.analysis.diffusionmap.DistanceMatrix
         """
         return diffusionmap.DistanceMatrix(universe).run().results.dist_matrix
-
 
     def _get_features_custom(self, universe):
         pass
