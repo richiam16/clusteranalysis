@@ -44,8 +44,8 @@ class Featurizer(object):
         dihedral angles
         """
         r = Ramachandran(universe.select_atoms('protein')).run()
-        r_sin = np.sin(np.deg2rad(r.angles))
-        r_cos = np.cos(np.deg2rad(r.angles))
+        r_sin = np.sin(np.deg2rad(r.results.angles))
+        r_cos = np.cos(np.deg2rad(r.results.angles))
 
         r_sin = r_sin.reshape((r_sin.shape[0], np.prod(r_sin.shape[1:])))
         r_cos = r_cos.reshape((r_cos.shape[0], np.prod(r_cos.shape[1:])))
