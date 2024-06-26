@@ -13,6 +13,10 @@ Welcome to clusteranalysis's documentation!
    getting_started
    api
 
+.. automodule:: clusterkit
+   :imported-members:
+   :members:
+
 
 
 Indices and tables

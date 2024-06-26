@@ -4,6 +4,10 @@ import numpy as np
 from MDAnalysis.analysis.dihedrals import Ramachandran
 from MDAnalysis.analysis import diffusionmap
 
+"""
+The ClusterAnalysis class provides methods to perform trajectory featurization
+and clustering.
+"""
 
 class Featurizer(object):
     def __init__(self, feature):
@@ -63,6 +67,16 @@ class Featurizer(object):
 
 
 class ClusterAnalysis(AnalysisBase):
+    """
+    ClusterAnalysis allows for the user to featurize data using the Featurize
+    class and cluster the resulting data using methods available in
+    scikit-learn.
+
+    Parameters
+    ==========
+    :param u: Universe containing trajectory to analyze
+    :type u: MDAnalysis.Universe
+    """
     def __init__(self, atomgroup):
         super(ClusterAnalysis, self).__init__(atomgroup)
         self.atomgroup = atomgroup
